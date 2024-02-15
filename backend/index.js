@@ -1,15 +1,23 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const {main} = require('./prisma/index.js');
+
+
+
 
 app.use(cors())
+const PORT = 3001;
 
-app.get('/api', (req, res) => {
-    res.send({ message: 'Mange Monz!' });
+
+main().then(() => {
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}.`);
     });
+}).catch(err => {
+    console.error("Erreur lors de l'exécution de main:", err);
+});
 
-app.listen(3001, () => {
-    console.log('Server listening on port 3001');
-    }
-);
+
+
 
